@@ -44,14 +44,14 @@ jobs:
 
       - name: Build docker image
         run: |-
-          docker build -t us-central1-docker.pkg.dev/fraha-395710/fraha/fraha:beta . \
+          docker build -t us-central1-docker.pkg.dev/fraha-395710/bloodshare/fraha:beta . \
           --file ./Dockerfile
 
       - name: Publish beta image to artifact registry
         run: |-
           export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
           echo $TAG
-          docker push us-central1-docker.pkg.dev/bloodshare-395710/fraha/fraha:beta
+          docker push us-central1-docker.pkg.dev/bloodshare-395710/bloodshare/fraha:beta
 
   deploy-beta:
     name: Deploy beta release to GCP
@@ -73,4 +73,4 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v1'
         with:
           service: 'beta-fraha'
-          image: 'us-central1-docker.pkg.dev/bloodshare-395710/fraha/fraha:beta'
+          image: 'us-central1-docker.pkg.dev/bloodshare-395710/bloodshare/fraha:beta'
