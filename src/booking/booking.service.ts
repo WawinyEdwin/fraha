@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BookingRepository } from './booking.repository';
-import { BookingInfo } from './booking.types';
+import { IBookingInfo } from './booking.types';
 
 @Injectable()
 export class BookingService {
@@ -23,14 +23,14 @@ export class BookingService {
     return response;
   }
 
-  async saveBookingInfo(BookingInfo: BookingInfo): Promise<any> {
+  async saveBookingInfo(BookingInfo: IBookingInfo): Promise<any> {
     const response = await this._bookingRepo.saveBooking(BookingInfo);
     return response;
   }
 
   async updateBooking(
     bookingId: string,
-    bookingInfo: Partial<BookingInfo>,
+    bookingInfo: Partial<IBookingInfo>,
   ): Promise<any> {
     const response = await this._bookingRepo.updateBooking(
       bookingId,

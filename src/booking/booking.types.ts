@@ -1,4 +1,4 @@
-export type BookingInfo = {
+export interface IBookingInfo {
   phone_number: string;
   date: string;
   service: string;
@@ -7,4 +7,4 @@ export type BookingInfo = {
   notes: string;
   repeat: true;
   time: Date;
-};
+}

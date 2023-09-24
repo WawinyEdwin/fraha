@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { SupabaseService } from 'src/supabase/supabase.service';
-import { BookingInfo } from './booking.types';
+import { IBookingInfo } from './booking.types';
 
 @Injectable()
 export class BookingRepository {
@@ -10,7 +10,7 @@ export class BookingRepository {
     this._supabase = this._supabaseClientFactory.createClient();
   }
 
-  async saveBooking(bookingInfo: BookingInfo): Promise<any> {
+  async saveBooking(bookingInfo: IBookingInfo): Promise<any> {
     const { data, error } = await this._supabase
       .from('bookings')
       .insert([{ ...bookingInfo }])
@@ -21,7 +21,7 @@ export class BookingRepository {
 
   async updateBooking(
     bookingId: string,
-    bookingInfo: Partial<BookingInfo>,
+    bookingInfo: Partial<IBookingInfo>,
   ): Promise<any> {
     const { data, error } = await this._supabase
       .from('bookings')

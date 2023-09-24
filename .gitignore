@@ -27,7 +27,7 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
-.env/development 
+/.env/development 
 
 # IDE - VSCode
 .vscode/*

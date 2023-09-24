@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { BookingModule } from './booking/booking.module';
 import { StaffModule } from './staff/staff.module';
 import { CashregisterModule } from './cashregister/cashregister.module';
-import { CampaignModule } from './booking/campaign/campaign.module';
+import { CampaignModule } from './campaign/campaign.module';
 import { CustomerModule } from './customer/customer.module';
 import { SalonModule } from './salon/salon.module';
 import { SupabaseModule } from './supabase/supabase.module';

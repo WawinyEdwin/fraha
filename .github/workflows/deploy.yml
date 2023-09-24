@@ -1,0 +1,76 @@
+name: Deploy Fraha To GCP
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: fraha
+  PORT: 8080
+  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
+
+jobs:
+  build-beta:
+    name: Deploy fraha
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+      - name: 'Login to artifact registry'
+        run: |-
+          gcloud auth print-access-token '${{ secrets.GCP_SERVICE_ACCOUNT }}' \
+          | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
+
+      - name: 'Generate an .env file'
+        run: |-
+          echo "SUPABASE_API_URL=${{ secrets.SUPABASE_API_URL }}" > .env/.env.development
+          echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> .env/.env.development
+          echo "SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env/.env.development
+          echo "SUPABASE_JWT_SECRET=${{ secrets.SUPABASE_JWT_SECRET }}" >> .env/.env.development
+
+      - name: Clean package manager cache
+        run: npm cache clean --force
+
+      - name: Build docker image
+        run: |-
+          docker build -t us-central1-docker.pkg.dev/fraha-395710/fraha/fraha:beta . \
+          --file ./Dockerfile
+
+      - name: Publish beta image to artifact registry
+        run: |-
+          export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
+          echo $TAG
+          docker push us-central1-docker.pkg.dev/fraha-395710/fraha/fraha:beta
+
+  deploy-beta:
+    name: Deploy beta release to GCP
+    runs-on: ubuntu-20.04
+    needs: [build-beta]
+    steps:
+      - uses: actions/checkout@v2
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+      - name: 'Login to artifact registry'
+        run: |-
+          gcloud auth print-access-token '${{ secrets.GCP_SERVICE_ACCOUNT }}' \
+          | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
+      - id: 'deploy-CR-beta'
+        uses: 'google-github-actions/deploy-cloudrun@v1'
+        with:
+          service: 'beta-fraha'
+          image: 'us-central1-docker.pkg.dev/fraha-395710/fraha/fraha:beta'
