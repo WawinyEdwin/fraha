@@ -44,7 +44,7 @@ jobs:
 
       - name: Build docker image
         run: |-
-          docker build -t us-central1-docker.pkg.dev/fraha-395710/bloodshare/fraha:beta . \
+          docker build -t us-central1-docker.pkg.dev/bloodshare-395710/bloodshare/fraha:beta . \
           --file ./Dockerfile
 
       - name: Publish beta image to artifact registry
