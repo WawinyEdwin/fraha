@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsEmail } from "class-validator";
+import { IsNotEmpty,  IsString } from "class-validator";
 
 export class PasswordRequestDto {
   @IsNotEmpty()
-  @IsEmail()
+  @IsString()
   readonly email: string;
 }
