@@ -15,7 +15,9 @@ export class CustomerRepository {
       .from('customers')
       .insert([{ ...customerInfo }])
       .select();
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
     return data[0];
   }
 
@@ -28,7 +30,9 @@ export class CustomerRepository {
       .update({ ...customerInfo })
       .eq('id', customerId)
       .select();
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
     return data[0];
   }
 
@@ -37,7 +41,9 @@ export class CustomerRepository {
       .from('customers')
       .select('*')
       .eq('id', customerId);
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
     return data[0];
   }
 
@@ -46,7 +52,9 @@ export class CustomerRepository {
       .from('customers')
       .select('*')
       .eq('salon', salonId);
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
     return data;
   }
 

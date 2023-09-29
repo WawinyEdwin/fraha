@@ -7,30 +7,25 @@ export class StaffService {
   constructor(private readonly _staffRepo: StaffRepository) {}
   
   async getStaff(staffId: string): Promise<any> {
-    const response = await this._staffRepo.findStaffById(staffId);
-    return response;
+    return await this._staffRepo.findStaffById(staffId);
   }
 
   async getSalonStaff(salonId: string): Promise<any> {
-    const response = await this._staffRepo.findStaffBySalonId(salonId);
-    return response;
+    return await this._staffRepo.findStaffBySalonId(salonId);
   }
 
   async saveStaffInfo(staffInfo: StaffInfo): Promise<any> {
-    const response = await this._staffRepo.saveStaff(staffInfo);
-    return response;
+    return await this._staffRepo.saveStaff(staffInfo);
   }
 
   async updateStaff(
     staffId: string,
     staffInfo: Partial<StaffInfo>,
   ): Promise<any> {
-    const response = await this._staffRepo.updateStaff(staffId, staffInfo);
-    return response;
+    return await this._staffRepo.updateStaff(staffId, staffInfo);
   }
 
   async removeStaff(staffId: string): Promise<any> {
-    const response = await this._staffRepo.deleteStaff(staffId);
-    return response;
+    return await this._staffRepo.deleteStaff(staffId);
   }
 }

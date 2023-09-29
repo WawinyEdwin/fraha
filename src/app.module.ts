@@ -8,6 +8,7 @@ import { SalonModule } from './salon/salon.module';
 import { SupabaseModule } from './supabase/supabase.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { ServicesModule } from './services/services.module';
 
 @Module({
   imports: [
@@ -15,14 +16,15 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       envFilePath: `.env/.env.${process.env.NODE_ENV || 'development'}`,
     }),
+    SupabaseModule,
+    AuthModule,
     BookingModule,
+    ServicesModule,
+    CustomerModule,
     StaffModule,
     CashregisterModule,
     CampaignModule,
-    CustomerModule,
     SalonModule,
-    SupabaseModule,
-    AuthModule,
   ],
 })
 export class AppModule {}

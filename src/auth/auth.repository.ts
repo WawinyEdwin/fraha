@@ -14,7 +14,9 @@ export class AuthRepository {
       email,
       password,
     });
-    if (error) throw new BadRequestException(error.message);
+    if (error) {
+      throw new BadRequestException(error.message);
+    }
     return data;
   }
 
@@ -23,7 +25,9 @@ export class AuthRepository {
       email,
       password,
     });
-    if (error) throw new BadRequestException(error.message);
+    if (error) {
+      throw new BadRequestException(error.message);
+    }
     return data;
   }
 
@@ -31,7 +35,9 @@ export class AuthRepository {
     const { data, error } = await this._supabase.auth.resetPasswordForEmail(
       email,
     );
-    if (error) throw new BadRequestException(error.message);
+    if (error) {
+      throw new BadRequestException(error.message);
+    }
     return data;
   }
 
@@ -39,7 +45,9 @@ export class AuthRepository {
     const { data, error } = await this._supabase.auth.updateUser({
       password,
     });
-    if (error) throw new BadRequestException(error.message);
+    if (error) {
+      throw new BadRequestException(error.message);
+    }
     return data;
   }
 }

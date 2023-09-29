@@ -2,7 +2,7 @@ name: Deploy Fraha To GCP
 on:
   push:
     branches:
-      - main
+      - release
 
 env:
   PROJECT_ID: fraha

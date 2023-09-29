@@ -15,20 +15,18 @@ export class SupabaseService {
   }
 
   createClient() {
-    const supabaseClient = createClient(this._url, this._anonApiKey, {
-      auth: {
-        persistSession: false,
-      },
-    });
-    return supabaseClient;
+    return createClient(this._url, this._anonApiKey, {
+          auth: {
+            persistSession: false,
+          },
+        });
   }
 
   createAdminClient() {
-    const supabaseAdminClient = createClient(this._url, this._serviceRoleKey, {
-      auth: {
-        persistSession: false,
-      },
-    });
-    return supabaseAdminClient;
+    return createClient(this._url, this._serviceRoleKey, {
+          auth: {
+            persistSession: false,
+          },
+        });
   }
 }

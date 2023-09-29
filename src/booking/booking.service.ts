@@ -7,40 +7,34 @@ export class BookingService {
   constructor(private readonly _bookingRepo: BookingRepository) {}
 
   async getBooking(bookingId: string): Promise<any> {
-    const response = await this._bookingRepo.findBookingById(bookingId);
-    return response;
+    return await this._bookingRepo.findBookingById(bookingId);
   }
 
   async getSalonBooking(salonId: string): Promise<any> {
-    const response = await this._bookingRepo.findBookingBySalonId(salonId);
-    return response;
+    return await this._bookingRepo.findBookingBySalonId(salonId);
   }
 
   async getCustomerBooking(phoneNumber: string): Promise<any> {
-    const response = await this._bookingRepo.findBookingByCustomerPhone(
-      phoneNumber,
-    );
-    return response;
+    return await this._bookingRepo.findBookingByCustomerPhone(
+          phoneNumber,
+        );
   }
 
   async saveBookingInfo(BookingInfo: IBookingInfo): Promise<any> {
-    const response = await this._bookingRepo.saveBooking(BookingInfo);
-    return response;
+    return await this._bookingRepo.saveBooking(BookingInfo);
   }
 
   async updateBooking(
     bookingId: string,
     bookingInfo: Partial<IBookingInfo>,
   ): Promise<any> {
-    const response = await this._bookingRepo.updateBooking(
-      bookingId,
-      bookingInfo,
-    );
-    return response;
+    return await this._bookingRepo.updateBooking(
+          bookingId,
+          bookingInfo,
+        );
   }
 
   async removeBooking(bookingId: string): Promise<any> {
-    const response = await this._bookingRepo.deleteBooking(bookingId);
-    return response;
+    return await this._bookingRepo.deleteBooking(bookingId);
   }
 }

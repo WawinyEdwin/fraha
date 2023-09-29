@@ -5,22 +5,18 @@ import { AuthRepository } from './auth.repository';
 export class AuthService {
   constructor(private readonly _authRepo: AuthRepository) {}
   async signUp(email: string, password: string): Promise<any> {
-    const response = await this._authRepo.signUp(email, password);
-    return response;
+    return await this._authRepo.signUp(email, password);
   }
 
   async signIn(email: string, password: string): Promise<any> {
-    const response = await this._authRepo.signIn(email, password);
-    return response;
+    return await this._authRepo.signIn(email, password);
   }
 
   async resetPassword(email: string): Promise<any> {
-    const response = await this._authRepo.resetPassword(email);
-    return response;
+    return await this._authRepo.resetPassword(email);
   }
 
   async setNewPassword(password: string): Promise<any> {
-    const response = await this._authRepo.setNewPassword(password);
-    return response;
+    return await this._authRepo.setNewPassword(password);
   }
 }
