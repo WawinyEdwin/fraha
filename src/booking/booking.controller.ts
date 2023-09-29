@@ -9,7 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { BookingService } from './booking.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('bookings')
 @Controller('bookings')
 export class BookingController {
   constructor(private readonly _bookingService: BookingService) {}
